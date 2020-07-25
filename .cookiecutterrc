@@ -65,6 +65,6 @@ default_context:
     travis:                    'yes'
     travis_osx:                'no'
     version:                   '0.0.0'
-    website:                   'https://miermans.com'
+    website:                   'https://github.com/mmiermans'
     year_from:                 '2020'
     year_to:                   '2020'

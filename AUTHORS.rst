@@ -2,4 +2,4 @@
 Authors
 =======
 
-* Matt Miermans - https://miermans.com
+* Matt Miermans - https://github.com/mmiermans
