@@ -19,13 +19,9 @@ Overview
     :target: https://readthedocs.org/projects/monopolion-evaluator
     :alt: Documentation Status
 
-.. |travis| image:: https://api.travis-ci.org/miermans/monopolion-evaluator.svg?branch=master
+.. |travis| image:: https://api.travis-ci.com/miermans/monopolion-evaluator.svg?branch=master
     :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/miermans/monopolion-evaluator
-
-.. |requires| image:: https://requires.io/github/miermans/monopolion-evaluator/requirements.svg?branch=master
-    :alt: Requirements Status
-    :target: https://requires.io/github/miermans/monopolion-evaluator/requirements/?branch=master
+    :target: https://travis-ci.com/miermans/monopolion-evaluator
 
 .. |coveralls| image:: https://coveralls.io/repos/miermans/monopolion-evaluator/badge.svg?branch=master&service=github
     :alt: Coverage Status
