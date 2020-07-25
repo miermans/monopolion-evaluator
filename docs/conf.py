@@ -21,7 +21,7 @@ project = 'monopolion_evaluator'
 year = '2020'
 author = 'Matt Miermans'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '0.0.0'
+version = release = '0.0.1'
 
 pygments_style = 'trac'
 templates_path = ['.']
