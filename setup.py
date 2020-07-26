@@ -68,6 +68,7 @@ setup(
     install_requires=[
         'tensorflow>=2.2.0',
         'protobuf>=3.12.0',
+        'numpy>=1.18.0',
     ],
     extras_require={
         # eg:
