@@ -69,6 +69,7 @@ setup(
         'tensorflow>=2.2.0',
         'protobuf>=3.12.0',
         'numpy>=1.18.0',
+        'pandas>=1.0.0',
     ],
     extras_require={
         # eg:
