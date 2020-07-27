@@ -1,11 +1,12 @@
-from typing import List, Generator
-import itertools
 import gzip
-import pandas as pd
+import itertools
+from typing import Generator
+from typing import List
 
-from monopolion_evaluator.protobuf import game_outcome_pb2
+import pandas as pd
 from google.protobuf.internal.decoder import _DecodeVarint32
 
+from monopolion_evaluator.protobuf import game_outcome_pb2
 
 PROPERTY_STATE_PREFIX = 'property'
 PLAYER_PREFIX = 'player'
