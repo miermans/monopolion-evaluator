@@ -25,7 +25,7 @@ def read(*names, **kwargs):
 
 setup(
     name='monopolion-evaluator',
-    version='0.0.1',
+    version='0.0.2',
     license='MIT',
     description='Neural net to predict winning probability in Monopoly',
     long_description='%s\n%s' % (
@@ -53,7 +53,6 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Utilities',
     ],
     project_urls={
@@ -62,11 +61,14 @@ setup(
         'Issue Tracker': 'https://github.com/miermans/monopolion-evaluator/issues',
     },
     keywords=[
-        # eg: 'keyword1', 'keyword2', 'keyword3',
+        'monopoly', 'ai', 'machine learning', 'neural network', 'deep learning'
     ],
     python_requires='>=3.6, <4',
     install_requires=[
-        # eg: 'aspectlib==1.1.1', 'six>=1.7',
+        'tensorflow>=2.2.0',
+        'protobuf>=3.12.0',
+        'numpy>=1.18.0',
+        'pandas>=1.0.0',
     ],
     extras_require={
         # eg:
