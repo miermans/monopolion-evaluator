@@ -2,7 +2,7 @@ from monopolion_evaluator.protobuf import parser
 
 
 def test_parse_delimited_file():
-    game_outcomes = parser.parse_delimited_file('fixtures/toy_data_2player.gz')
+    game_outcomes = parser.parse_delimited_file('tests/fixtures/toy_data_2player.gz')
 
     for game_outcome in game_outcomes:
         assert game_outcome.winningPlayer in [0, 1]
@@ -19,7 +19,7 @@ def test_parse_delimited_file():
 
 
 def test_to_data_frame():
-    game_outcomes = parser.parse_delimited_file('fixtures/toy_data_2player.gz')
+    game_outcomes = parser.parse_delimited_file('tests/fixtures/toy_data_2player.gz')
 
     df = parser.to_data_frame(game_outcomes)
 
