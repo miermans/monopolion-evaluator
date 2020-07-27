@@ -17,6 +17,13 @@ PROPERTY_STATE_COLUMNS = ('owner', 'buildingCount')
 
 
 def parse_delimited_file(filename: str, decompress: bool = True) -> game_outcome_pb2.GameOutcome:
+    """
+    Parse a delimited protobuf file with game outcomes, which specify a game state and which player won.
+
+    :param filename: Path to GameOutcome protobuf file
+    :param decompress: Set to True if the file is gzip'ed
+    :return: Protobuf GameOutcome object
+    """
     game_outcomes = []
     open_function = gzip.open if decompress else open
 
@@ -36,6 +43,12 @@ def parse_delimited_file(filename: str, decompress: bool = True) -> game_outcome
 
 
 def to_data_frame(game_outcomes: List[game_outcome_pb2.GameOutcome]) -> pd.DataFrame:
+    """
+    Convert parsed protobuf objects to a flat Pandas DataFrame.
+
+    :param game_outcomes: List of GameOutcome protobuf objects
+    :return: Flat pandas DataFrame.
+    """
     if not game_outcomes:
         raise ValueError('game_outcome must not be empty')
 
