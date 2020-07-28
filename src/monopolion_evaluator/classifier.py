@@ -27,6 +27,7 @@ class Classifier:
     def __init__(self, train_df: pd.DataFrame, validation_df: pd.DataFrame, player_count: int):
         self.train_df = train_df
         self.validation_df = validation_df
+        self.headers = train_df.columns.values
         self.player_count = player_count
         self.__category_vocabulary_lists = {
             'die1': range(1, 7),
@@ -45,7 +46,7 @@ class Classifier:
         if self.validation_df is not None:
             validation_ds = self.df_to_dataset(self.validation_df)
 
-        feature_layer = tf.keras.layers.DenseFeatures(self.get_feature_columns(train_ds))
+        feature_layer = tf.keras.layers.DenseFeatures(self.get_feature_columns())
 
         model = tf.keras.Sequential([
             feature_layer,
@@ -67,10 +68,9 @@ class Classifier:
 
         return model
 
-    def get_feature_columns(self, dataset: tf.data.Dataset):
-        tensor_specs, _ = dataset.element_spec
+    def get_feature_columns(self):
         cols = []
-        for header in tensor_specs.keys():
+        for header in self.headers:
             if header == self.TARGET_COLUMN:
                 continue
             elif any(header.endswith(s) for s in self.NUMERIC_COLUMN_SUFFIXES):
