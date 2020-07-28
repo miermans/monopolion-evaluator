@@ -56,13 +56,15 @@ class Classifier:
             layers.Dense(1)
         ])
 
-        model.compile(optimizer='adam',
-                      loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
-                      metrics=['accuracy'])
+        model.compile(
+            optimizer='adam',
+            loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
+            metrics=['accuracy'])
 
-        history = model.fit(train_ds,
-                  validation_data=validation_ds,
-                  epochs=10)
+        history = model.fit(
+            train_ds,
+            validation_data=validation_ds,
+            epochs=epochs)
 
         return model
 
