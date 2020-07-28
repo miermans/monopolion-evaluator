@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.0.4 (2020-07-28)
+------------------
+
+* Added continuous deployment using Travis
+
 0.0.3 (2020-07-28)
 ------------------
 
