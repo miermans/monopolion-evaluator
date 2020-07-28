@@ -14,9 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import tensorflow as tf
 import pandas as pd
-
+import tensorflow as tf
 from tensorflow import feature_column
 from tensorflow.keras import layers
 

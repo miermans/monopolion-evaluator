@@ -15,6 +15,7 @@ Why does this file exist, and why not put this in __main__?
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 import argparse
+
 from monopolion_evaluator.classifier import Classifier
 from monopolion_evaluator.protobuf.parser import parse_delimited_file
 from monopolion_evaluator.protobuf.parser import to_data_frame
