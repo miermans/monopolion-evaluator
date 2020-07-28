@@ -19,5 +19,10 @@ def test_df_to_dataset(classifier, toy_data_frame):
     features, labels = ds.element_spec
 
 
+def test_df_to_dataset_no_shuffle(classifier, toy_data_frame):
+    ds = classifier.df_to_dataset(toy_data_frame, shuffle=False)
+    features, labels = ds.element_spec
+
+
 def test_fit_model(classifier, toy_data_frame):
     classifier.fit_model(epochs=1)
