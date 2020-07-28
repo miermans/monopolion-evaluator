@@ -19,11 +19,11 @@ Overview
     :target: https://readthedocs.org/projects/monopolion-evaluator
     :alt: Documentation Status
 
-.. |travis| image:: https://api.travis-ci.com/miermans/monopolion-evaluator.svg?branch=master
+.. |travis| image:: https://api.travis-ci.com/miermans/monopolion-evaluator.svg?branch=main
     :alt: Travis-CI Build Status
     :target: https://travis-ci.com/miermans/monopolion-evaluator
 
-.. |coveralls| image:: https://coveralls.io/repos/miermans/monopolion-evaluator/badge.svg?branch=master&service=github
+.. |coveralls| image:: https://coveralls.io/repos/miermans/monopolion-evaluator/badge.svg?branch=main&service=github
     :alt: Coverage Status
     :target: https://coveralls.io/r/miermans/monopolion-evaluator
 
@@ -43,9 +43,9 @@ Overview
     :alt: Supported implementations
     :target: https://pypi.org/project/monopolion-evaluator
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/miermans/monopolion-evaluator/v0.0.3.svg
+.. |commits-since| image:: https://img.shields.io/github/commits-since/miermans/monopolion-evaluator/v0.0.4.svg
     :alt: Commits since latest release
-    :target: https://github.com/miermans/monopolion-evaluator/compare/v0.0.3...master
+    :target: https://github.com/miermans/monopolion-evaluator/compare/v0.0.4...main
 
 
 
@@ -64,7 +64,7 @@ Installation
 
 You can also install the in-development version with::
 
-    pip install https://github.com/miermans/monopolion-evaluator/archive/master.zip
+    pip install https://github.com/miermans/monopolion-evaluator/archive/main.zip
 
 
 Documentation
