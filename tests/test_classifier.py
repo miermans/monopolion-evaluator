@@ -20,4 +20,4 @@ def test_df_to_dataset(classifier, toy_data_frame):
 
 
 def test_fit_model(classifier, toy_data_frame):
-    model = classifier.fit_model(epochs=1)
+    classifier.fit_model(epochs=1)

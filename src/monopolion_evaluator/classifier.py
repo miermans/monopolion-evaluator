@@ -61,7 +61,7 @@ class Classifier:
             loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
             metrics=['accuracy'])
 
-        history = model.fit(
+        model.fit(
             train_ds,
             validation_data=validation_ds,
             epochs=epochs)
