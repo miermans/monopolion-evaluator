@@ -25,7 +25,7 @@ def read(*names, **kwargs):
 
 setup(
     name='monopolion-evaluator',
-    version='0.0.4',
+    version='0.0.5',
     license='MIT',
     description='Neural net to predict winning probability in Monopoly',
     long_description='%s\n%s' % (
