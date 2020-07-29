@@ -17,7 +17,6 @@
 import pandas as pd
 import tensorflow as tf
 from tensorflow import feature_column
-from tensorflow.keras import layers
 
 
 class Classifier:
@@ -40,7 +39,10 @@ class Classifier:
             'buildingCount': range(5),
         }
 
-    def fit_model(self, epochs: int = 10):
+    def fit_model(self, epochs: int = 10, layers=None, learning_rate=0.001, dropout=0.2):
+        if layers is None:
+            layers = [512, 128]
+
         train_ds = self.df_to_dataset(self.train_df)
         validation_ds = None
         if self.validation_df is not None:
@@ -48,16 +50,14 @@ class Classifier:
 
         feature_layer = tf.keras.layers.DenseFeatures(self.get_feature_columns())
 
-        model = tf.keras.Sequential([
-            feature_layer,
-            layers.Dense(128, activation='relu'),
-            layers.Dense(128, activation='relu'),
-            layers.Dropout(.1),
-            layers.Dense(1)
-        ])
+        model = tf.keras.Sequential([feature_layer])
+        for units in layers:
+            model.add(tf.keras.layers.Dense(units, activation='relu'))
+            model.add(tf.keras.layers.Dropout(dropout))
+        model.add(tf.keras.layers.Dense(1))
 
         model.compile(
-            optimizer='adam',
+            optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
             loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
             metrics=['accuracy'])
 
