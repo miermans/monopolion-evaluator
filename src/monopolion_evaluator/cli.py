@@ -27,6 +27,12 @@ parser.add_argument('--validation', metavar='VALIDATION_DATA', type=str,
                     help="Path to validation data file, encoded using ProtoBuf")
 parser.add_argument('--epochs', metavar='EPOCHS', type=int, default=10,
                     help="Number of epochs to train the model")
+parser.add_argument('--layers', '-l', metavar='LAYERS', type=int, nargs='*', default=[256, 128],
+                    help="Neural net layers, where each integer corresponds to the number of units in a layer")
+parser.add_argument('--learning-rate', '-a', metavar='LEARNING_RATE', type=float, default=0.001,
+                    help="Learning rate (alpha)")
+parser.add_argument('--dropout', '-d', metavar='DROPOUT', type=float, default=0.2,
+                    help="Dropout rate")
 
 
 def main(args=None):
@@ -37,4 +43,4 @@ def main(args=None):
     if args.validation is not None:
         validation_df = to_data_frame(parse_delimited_file(args.validation))
     classifier = Classifier(training_df, validation_df=validation_df, player_count=2)
-    classifier.fit_model(epochs=args.epochs)
+    classifier.fit_model(epochs=args.epochs, layers=args.layers, learning_rate=args.learning_rate, dropout=args.dropout)

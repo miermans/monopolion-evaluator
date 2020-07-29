@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.0.6 (2020-07-29)
+------------------
+
+* Added command line arguments to customize classifier
+
 0.0.5 (2020-07-28)
 ------------------
 
