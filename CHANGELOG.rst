@@ -2,6 +2,12 @@
 Changelog
 =========
 
+0.0.5 (2020-07-28)
+------------------
+
+* Fix 'File already exists' build error, caused by competing build artifacts
+* Fix missing wheel in build
+
 0.0.4 (2020-07-28)
 ------------------
 
