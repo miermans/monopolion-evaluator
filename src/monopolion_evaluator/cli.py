@@ -16,6 +16,8 @@ Why does this file exist, and why not put this in __main__?
 """
 import argparse
 
+from monopolion_evaluator.util import get_model_path
+from monopolion_evaluator.util import validate_write_access
 from monopolion_evaluator.classifier import Classifier
 from monopolion_evaluator.protobuf.parser import parse_delimited_file
 from monopolion_evaluator.protobuf.parser import to_data_frame
@@ -25,6 +27,10 @@ parser.add_argument('--training', metavar='TRAINING_DATA', type=str, required=Tr
                     help="Path to training data file, encoded using ProtoBuf")
 parser.add_argument('--validation', metavar='VALIDATION_DATA', type=str,
                     help="Path to validation data file, encoded using ProtoBuf")
+parser.add_argument('--output', metavar='VALIDATION_DATA', type=str,
+                    help="File or directory path to save the TensorFlow model")
+
+
 parser.add_argument('--epochs', metavar='EPOCHS', type=int, default=10,
                     help="Number of epochs to train the model")
 parser.add_argument('--layers', '-l', metavar='LAYERS', type=int, nargs='*', default=[256, 128],
@@ -40,11 +46,18 @@ parser.add_argument('--dropout', '-d', metavar='DROPOUT', type=float, default=0.
 def main(args=None):
     args = parser.parse_args(args=args)
 
+    model_path = None
+    if args.output is not None:
+        model_path = get_model_path(args.output)
+        validate_write_access(model_path)
+
     training_df = to_data_frame(parse_delimited_file(args.training))
     validation_df = None
     if args.validation is not None:
         validation_df = to_data_frame(parse_delimited_file(args.validation))
     classifier = Classifier(training_df, validation_df=validation_df, player_count=2)
-    classifier.fit_model(
+    model = classifier.fit_model(
         epochs=args.epochs, layers=args.layers, learning_rate=args.learning_rate, dropout=args.dropout,
         batch_size=args.batch_size)
+    if model_path is not None:
+        model.save(model_path)
