@@ -122,16 +122,17 @@ class Classifier:
             return self.train_df[header].unique()
 
     def __add_engineered_features(self, df):
-        df['set1_owner'] = np.where(df['property_0_owner'] == df['property_1_owner'], df['property_0_owner'], -1)
-        df['set2_owner'] = np.where((df['property_3_owner'] == df['property_4_owner']) & (df['property_4_owner'] == df['property_5_owner']), df['property_3_owner'], -1)
-        df['set3_owner'] = np.where((df['property_6_owner'] == df['property_8_owner']) & (df['property_8_owner'] == df['property_9_owner']), df['property_6_owner'], -1)
-        df['set4_owner'] = np.where((df['property_11_owner'] == df['property_12_owner']) & (df['property_12_owner'] == df['property_13_owner']), df['property_11_owner'], -1)
-        df['set5_owner'] = np.where((df['property_14_owner'] == df['property_15_owner']) & (df['property_15_owner'] == df['property_16_owner']), df['property_14_owner'], -1)
-        df['set6_owner'] = np.where((df['property_18_owner'] == df['property_19_owner']) & (df['property_19_owner'] == df['property_21_owner']), df['property_18_owner'], -1)
-        df['set7_owner'] = np.where((df['property_22_owner'] == df['property_23_owner']) & (df['property_23_owner'] == df['property_24_owner']), df['property_22_owner'], -1)
-        df['set8_owner'] = np.where(df['property_26_owner'] == df['property_27_owner'], df['property_27_owner'], -1)
-        df['set9_owner'] = np.where((df['property_2_owner'] == df['property_10_owner']) & (df['property_10_owner'] == df['property_17_owner']) & (df['property_17_owner'] == df['property_25_owner']), df['property_2_owner'], -1)
-        df['set10_owner'] = np.where(df['property_7_owner'] == df['property_20_owner'], df['property_7_owner'], -1)
+        pass
+        # df['set1_owner'] = np.where(df['property_0_owner'] == df['property_1_owner'], df['property_0_owner'], -1)
+        # df['set2_owner'] = np.where((df['property_3_owner'] == df['property_4_owner']) & (df['property_4_owner'] == df['property_5_owner']), df['property_3_owner'], -1)
+        # df['set3_owner'] = np.where((df['property_6_owner'] == df['property_8_owner']) & (df['property_8_owner'] == df['property_9_owner']), df['property_6_owner'], -1)
+        # df['set4_owner'] = np.where((df['property_11_owner'] == df['property_12_owner']) & (df['property_12_owner'] == df['property_13_owner']), df['property_11_owner'], -1)
+        # df['set5_owner'] = np.where((df['property_14_owner'] == df['property_15_owner']) & (df['property_15_owner'] == df['property_16_owner']), df['property_14_owner'], -1)
+        # df['set6_owner'] = np.where((df['property_18_owner'] == df['property_19_owner']) & (df['property_19_owner'] == df['property_21_owner']), df['property_18_owner'], -1)
+        # df['set7_owner'] = np.where((df['property_22_owner'] == df['property_23_owner']) & (df['property_23_owner'] == df['property_24_owner']), df['property_22_owner'], -1)
+        # df['set8_owner'] = np.where(df['property_26_owner'] == df['property_27_owner'], df['property_27_owner'], -1)
+        # df['set9_owner'] = np.where((df['property_2_owner'] == df['property_10_owner']) & (df['property_10_owner'] == df['property_17_owner']) & (df['property_17_owner'] == df['property_25_owner']), df['property_2_owner'], -1)
+        # df['set10_owner'] = np.where(df['property_7_owner'] == df['property_20_owner'], df['property_7_owner'], -1)
         # for p in range(2):
         #     df[f'player_{p}_setCount'] = 0
         #     for i in range(1, 11):

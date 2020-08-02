@@ -46,13 +46,15 @@ def train(args=None):
     if args.validation is not None:
         validation_df = to_data_frame(parse_delimited_file(args.validation))
 
+    import tensorflow as tf
     from monopolion_evaluator.classifier import Classifier
+
     classifier = Classifier(training_df, validation_df=validation_df, player_count=2)
     model = classifier.fit_model(
         epochs=args.epochs, layers=args.layers, learning_rate=args.learning_rate, dropout=args.dropout,
         batch_size=args.batch_size)
     if model_path is not None:
-        model.save(args.output)
+        tf.keras.models.save_model(args.output)
 
 
 def load_model(args=None):
