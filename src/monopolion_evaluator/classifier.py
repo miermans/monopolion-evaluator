@@ -21,24 +21,16 @@ from tensorflow import feature_column
 
 
 class Classifier:
-    NUMERIC_COLUMN_SUFFIXES = ['cash', 'score']
+    NUMERIC_COLUMN_SUFFIXES = ['cash']
     TARGET_COLUMN = 'winningPlayer'
 
     METRICS = [
-        tf.keras.metrics.Recall(name='tp'),
-        tf.keras.metrics.FalsePositives(name='fp'),
-        tf.keras.metrics.TrueNegatives(name='tn'),
-        tf.keras.metrics.FalseNegatives(name='fn'),
         tf.keras.metrics.BinaryAccuracy(name='accuracy'),
     ]
 
     def __init__(self, train_df: pd.DataFrame, validation_df: pd.DataFrame, player_count: int):
         self.train_df = train_df
-        self.__add_engineered_features(self.train_df)
         self.validation_df = validation_df
-        if self.validation_df is not None:
-            self.__add_engineered_features(self.validation_df)
-
         self.headers = train_df.columns.values
         self.player_count = player_count
         self.__category_vocabulary_lists = {
@@ -50,7 +42,6 @@ class Classifier:
             'isOwned': range(2),
             'owner': range(-1, player_count),
             'buildingCount': range(5),
-            'setCount': range(11),
         }
 
     def fit_model(self, epochs: int = 10, layers=None, batch_size: int = 100, learning_rate=0.001, dropout=0.2):
@@ -121,24 +112,3 @@ class Classifier:
             return self.__category_vocabulary_lists[suffix]
         except KeyError:
             return self.train_df[header].unique()
-
-    def __add_engineered_features(self, df):
-        pass
-        # df['set1_owner'] = np.where(df['property_0_owner'] == df['property_1_owner'], df['property_0_owner'], -1)
-        # df['set2_owner'] = np.where((df['property_3_owner'] == df['property_4_owner']) & (df['property_4_owner'] == df['property_5_owner']), df['property_3_owner'], -1)
-        # df['set3_owner'] = np.where((df['property_6_owner'] == df['property_8_owner']) & (df['property_8_owner'] == df['property_9_owner']), df['property_6_owner'], -1)
-        # df['set4_owner'] = np.where((df['property_11_owner'] == df['property_12_owner']) & (df['property_12_owner'] == df['property_13_owner']), df['property_11_owner'], -1)
-        # df['set5_owner'] = np.where((df['property_14_owner'] == df['property_15_owner']) & (df['property_15_owner'] == df['property_16_owner']), df['property_14_owner'], -1)
-        # df['set6_owner'] = np.where((df['property_18_owner'] == df['property_19_owner']) & (df['property_19_owner'] == df['property_21_owner']), df['property_18_owner'], -1)
-        # df['set7_owner'] = np.where((df['property_22_owner'] == df['property_23_owner']) & (df['property_23_owner'] == df['property_24_owner']), df['property_22_owner'], -1)
-        # df['set8_owner'] = np.where(df['property_26_owner'] == df['property_27_owner'], df['property_27_owner'], -1)
-        # df['set9_owner'] = np.where((df['property_2_owner'] == df['property_10_owner']) & (df['property_10_owner'] == df['property_17_owner']) & (df['property_17_owner'] == df['property_25_owner']), df['property_2_owner'], -1)
-        # df['set10_owner'] = np.where(df['property_7_owner'] == df['property_20_owner'], df['property_7_owner'], -1)
-        # for p in range(2):
-        #     df[f'player_{p}_setCount'] = 0
-        #     for i in range(1, 11):
-        #         df[f'player_{p}_setCount'] += (df[f'set{i}_owner'] == p).astype(int)
-        #
-        #     df[f'player_{p}_score'] = (2000 * df[f'player_{p}_setCount']) + df[f'player_{p}_cash']
-
-        #df[f'game_owner'] = np.where(df[f'player_0_score'] >= df[f'player_1_score'], 0, 1)
