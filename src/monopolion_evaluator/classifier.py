@@ -98,7 +98,8 @@ class Classifier:
 
         return cols
 
-    def df_to_dataset(self, data_frame: pd.DataFrame, shuffle: bool = True, batch_size: int = 100) -> tf.data.Dataset:
+    @staticmethod
+    def df_to_dataset(data_frame: pd.DataFrame, shuffle: bool = True, batch_size: int = 100) -> tf.data.Dataset:
         """
         A utility method to create a tf.data dataset from a Pandas Dataframe
         :param data_frame:
@@ -107,7 +108,7 @@ class Classifier:
         :return:
         """
         df = data_frame.copy()
-        labels = df.pop(self.TARGET_COLUMN)
+        labels = df.pop(Classifier.TARGET_COLUMN)
         ds = tf.data.Dataset.from_tensor_slices((dict(df), labels))
         if shuffle:
             ds = ds.shuffle(buffer_size=len(df))

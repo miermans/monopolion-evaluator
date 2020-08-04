@@ -16,12 +16,12 @@ Why does this file exist, and why not put this in __main__?
 """
 import argparse
 
+import pandas as pd
+
 from monopolion_evaluator import __version__ as monopolion_evaluator_version
 from monopolion_evaluator.protobuf.parser import parse_delimited_file
 from monopolion_evaluator.protobuf.parser import to_data_frame
-from monopolion_evaluator.util import get_model_path
-from monopolion_evaluator.util import validate_write_access
-
+from monopolion_evaluator.util import create_model_directory
 
 LOGO = r"""                                      _ _
   /\/\   ___  _ __   ___  _ __   ___ | (_) ___  _ __
@@ -36,17 +36,13 @@ def print_logo(args=None):
 
 
 def train(args=None):
-    model_path = None
-    if args.output is not None:
-        model_path = get_model_path(args.output)
-        validate_write_access(model_path)
+    model_path = create_model_directory(args.output) if args.output is not None else None
 
     training_df = to_data_frame(parse_delimited_file(args.training))
     validation_df = None
     if args.validation is not None:
         validation_df = to_data_frame(parse_delimited_file(args.validation))
 
-    import tensorflow as tf
     from monopolion_evaluator.classifier import Classifier
 
     classifier = Classifier(training_df, validation_df=validation_df, player_count=2)
@@ -54,11 +50,18 @@ def train(args=None):
         epochs=args.epochs, layers=args.layers, learning_rate=args.learning_rate, dropout=args.dropout,
         batch_size=args.batch_size)
     if model_path is not None:
-        tf.keras.models.save_model(args.output)
+        model.save(model_path)
 
 
-def load_model(args=None):
-    pass
+def predict(args=None):
+    import tensorflow as tf
+
+    df = pd.read_csv(args.csv)
+    ds = tf.data.Dataset.from_tensor_slices(dict(df)).batch(32)
+
+    model = tf.keras.models.load_model(args.model)
+    predictions = model.predict(ds)
+    print(predictions)
 
 
 parser = argparse.ArgumentParser(description=str(LOGO), formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -90,9 +93,11 @@ train_parser.add_argument('--dropout', '-d', metavar='DROPOUT', type=float, defa
                           help="Dropout rate")
 
 # load sub-command
-load_parser = subparsers.add_parser('load')
-load_parser.set_defaults(sub_command=load_model)
+load_parser = subparsers.add_parser('predict')
+load_parser.set_defaults(sub_command=predict)
 load_parser.add_argument('--model', '-m', metavar='MODEL_DIR', type=str,
+                         help="Tensorflow model directory")
+load_parser.add_argument('--csv', metavar='CSV', type=argparse.FileType('r'),
                          help="Tensorflow model directory")
 
 
