@@ -23,6 +23,10 @@ class Classifier:
     NUMERIC_COLUMN_SUFFIXES = ['cash']
     TARGET_COLUMN = 'winningPlayer'
 
+    METRICS = [
+        tf.keras.metrics.BinaryAccuracy(name='accuracy'),
+    ]
+
     def __init__(self, train_df: pd.DataFrame, validation_df: pd.DataFrame, player_count: int):
         self.train_df = train_df
         self.validation_df = validation_df
@@ -39,27 +43,29 @@ class Classifier:
             'buildingCount': range(5),
         }
 
-    def fit_model(self, epochs: int = 10, layers=None, learning_rate=0.001, dropout=0.2):
+    def fit_model(self, epochs: int = 10, layers=None, batch_size: int = 100, learning_rate=0.001, dropout=0.2):
         if layers is None:
             layers = [512, 128]
 
-        train_ds = self.df_to_dataset(self.train_df)
+        train_ds = self.df_to_dataset(self.train_df, batch_size=batch_size)
         validation_ds = None
         if self.validation_df is not None:
             validation_ds = self.df_to_dataset(self.validation_df)
 
         feature_layer = tf.keras.layers.DenseFeatures(self.get_feature_columns())
 
-        model = tf.keras.Sequential([feature_layer])
+        model = tf.keras.Sequential()
+        model.add(feature_layer)
         for units in layers:
             model.add(tf.keras.layers.Dense(units, activation='relu'))
-            model.add(tf.keras.layers.Dropout(dropout))
-        model.add(tf.keras.layers.Dense(1))
+            if dropout > 0:
+                model.add(tf.keras.layers.Dropout(dropout))
+        model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
         model.compile(
             optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
-            loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
-            metrics=['accuracy'])
+            loss='binary_crossentropy',
+            metrics=Classifier.METRICS)
 
         model.fit(
             train_ds,
@@ -82,7 +88,8 @@ class Classifier:
 
         return cols
 
-    def df_to_dataset(self, data_frame: pd.DataFrame, shuffle: bool = True, batch_size: int = 32) -> tf.data.Dataset:
+    @staticmethod
+    def df_to_dataset(data_frame: pd.DataFrame, shuffle: bool = True, batch_size: int = 100) -> tf.data.Dataset:
         """
         A utility method to create a tf.data dataset from a Pandas Dataframe
         :param data_frame:
@@ -91,7 +98,7 @@ class Classifier:
         :return:
         """
         df = data_frame.copy()
-        labels = df.pop(self.TARGET_COLUMN)
+        labels = df.pop(Classifier.TARGET_COLUMN)
         ds = tf.data.Dataset.from_tensor_slices((dict(df), labels))
         if shuffle:
             ds = ds.shuffle(buffer_size=len(df))

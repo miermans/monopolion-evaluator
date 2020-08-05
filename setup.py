@@ -25,7 +25,7 @@ def read(*names, **kwargs):
 
 setup(
     name='monopolion-evaluator',
-    version='0.0.6',
+    version='0.1.0',
     license='MIT',
     description='Neural net to predict winning probability in Monopoly',
     long_description='%s\n%s' % (
@@ -65,9 +65,9 @@ setup(
     ],
     python_requires='>=3.6, <4',
     install_requires=[
-        'tensorflow>=2.2.0',
+        'tensorflow==2.2.0',
         'protobuf>=3.12.0',
-        'numpy>=1.18.0',
+        'numpy>=1.18.0,<1.19.0',
         'pandas>=1.0.0',
     ],
     extras_require={

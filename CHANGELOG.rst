@@ -2,6 +2,13 @@
 Changelog
 =========
 
+0.1.0 (2020-08-03)
+------------------
+
+* Changed CLI to sub-commands. `monopolion-evaluator` is now `monopolion-evaluator train`.
+* Added predict sub-command.
+* Added `--output` arg to `train`, to save the model.
+
 0.0.6 (2020-07-29)
 ------------------
 
