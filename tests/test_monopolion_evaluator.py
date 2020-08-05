@@ -1,6 +1,7 @@
-import pytest
-import tempfile
 import os
+import tempfile
+
+import pytest
 
 from monopolion_evaluator.classifier import Classifier
 from monopolion_evaluator.cli import main
