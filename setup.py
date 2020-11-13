@@ -65,7 +65,7 @@ setup(
     ],
     python_requires='>=3.6, <4',
     install_requires=[
-        'tensorflow==2.2.0',
+        'tensorflow==2.3.1',
         'protobuf>=3.12.0',
         'numpy>=1.18.0,<1.19.0',
         'pandas>=1.0.0',
